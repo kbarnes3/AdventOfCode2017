@@ -38,12 +38,29 @@ int main()
 
     std::wcin >> input;
 
+    int firstNumber = 0;
+    int previousNumber = -1;
+    int sum = 0;
+
+    firstNumber = char_to_int(input[0]);
+
     for (wchar_t& c : input)
     {
         int number = char_to_int(c);
-        wprintf(L"%d", number);
+        if (number == previousNumber)
+        {
+            sum += number;
+        }
+
+        previousNumber = number;
     }
-    wprintf(L"\n");
+    
+    if (previousNumber == firstNumber)
+    {
+        sum += firstNumber;
+    }
+
+    wprintf(L"%d", sum);
 
     return 0;
 }
