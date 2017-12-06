@@ -1,0 +1,7 @@
+# VS [Code] files
+.vs
+
+# Generated files
+Debug/
+Release/
+x64/
