@@ -1,5 +1,6 @@
 # VS [Code] files
 .vs
+.vscode
 
 # Generated files
 Debug/

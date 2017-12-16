@@ -6,6 +6,14 @@
 
 int main()
 {
+    std::wstring row;
+    while (std::getline(std::wcin, row))
+    {
+        if (row.length() > 0)
+        {
+            wprintf(L"Row: %s\n", row);
+        }
+    }
     return 0;
 }
 
