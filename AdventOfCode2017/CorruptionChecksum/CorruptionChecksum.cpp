@@ -14,13 +14,15 @@ int main()
     {
         if (row.length() > 0)
         {
-            wprintf(L"Row: %s\n", row);
+            wprintf(L"Row: ");
             wtokenizer tokens(row, tab_sep);
 
             for (const std::wstring& s : tokens)
             {
-                wprintf(L"Cell: %s\n", s);
+                long int cell = wcstol(s.c_str(), nullptr, 10);
+                wprintf(L"(%d) ", cell);
             }
+            wprintf(L"\n");
         }
     }
     return 0;
