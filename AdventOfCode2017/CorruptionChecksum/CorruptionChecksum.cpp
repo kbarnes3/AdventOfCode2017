@@ -4,6 +4,8 @@
 #include "stdafx.h"
 using namespace boost;
 
+using wtokenizer = tokenizer<char_separator<wchar_t>, std::wstring::const_iterator, std::wstring>;
+
 int main()
 {
     std::wstring row;
@@ -13,7 +15,12 @@ int main()
         if (row.length() > 0)
         {
             wprintf(L"Row: %s\n", row);
-            //tokenizer<char_separator<wchar_t>> tokens(row, tab_sep);
+            wtokenizer tokens(row, tab_sep);
+
+            for (const std::wstring& s : tokens)
+            {
+                wprintf(L"Cell: %s\n", s);
+            }
         }
     }
     return 0;
