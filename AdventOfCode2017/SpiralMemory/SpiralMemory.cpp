@@ -12,7 +12,10 @@ long int ringForNumber(_In_ long int target)
     targetDouble -= 1.0;
     targetDouble /= 2.0;
 
-    return static_cast<long int>(ceil(targetDouble));
+    long int ring = static_cast<long int>(ceil(targetDouble));
+    wprintf(L"%d is in ring %d\n", target, ring);
+
+    return ring;
 }
 
 void getStartForRing(_In_ long int ring, _Out_ long int& ringStart, _Out_ long int& startX, _Out_ long int& startY)
@@ -37,6 +40,70 @@ void getStartForRing(_In_ long int ring, _Out_ long int& ringStart, _Out_ long i
         startX = prevRing + 1;
         startY = -prevRing;
     }
+
+    wprintf(L"Ring %d starts with %d at (%d, %d)\n", ring, ringStart, startX, startY);
+}
+
+enum class SpiralDirection
+{
+    Up,
+    Left,
+    Down,
+    Right,
+};
+
+void getPositionForTarget(_In_ long int target, _Out_ long int& x, _Out_ long int& y)
+{
+    long int ring = ringForNumber(target);
+
+    long int i = 0;
+
+    getStartForRing(ring, i, x, y);
+
+    SpiralDirection currentDirection = SpiralDirection::Up;
+    i++;
+
+    for (; i <= target; i++)
+    {
+        switch (currentDirection)
+        {
+            case SpiralDirection::Up:
+                y++;
+                if (y == ring)
+                {
+                    currentDirection = SpiralDirection::Left;
+                }
+                break;
+            case SpiralDirection::Left:
+                x--;
+                if (x == -ring)
+                {
+                    currentDirection = SpiralDirection::Down;
+                }
+                break;
+            case SpiralDirection::Down:
+                y--;
+                if (y == -ring)
+                {
+                    currentDirection = SpiralDirection::Right;
+                }
+                break;
+            case SpiralDirection::Right:
+                x++;
+                break;
+        }
+    }
+
+    wprintf(L"%d is at (%d, %d)", target, x, y);
+}
+
+long int getDistanceForTarget(_In_ long int target)
+{
+    long int x = 0;
+    long int y = 0;
+    getPositionForTarget(target, x, y);
+
+    return 0;
 }
 
 int main()
@@ -45,15 +112,11 @@ int main()
     std::getline(std::wcin, row);
 
     long int target = wcstol(row.c_str(), nullptr, 10);
-    long int ring = ringForNumber(target);
 
-    long int ringStart = 0;
-    long int startX = 0;
-    long int startY = 0;
-    getStartForRing(ring, ringStart, startX, startY);
+    getDistanceForTarget(target);
 
-    wprintf(L"%d is in ring %d\n", target, ring);
-    wprintf(L"Ring %d starts with %d at (%d, %d)\n", ring, ringStart, startX, startY);
+
+
     //wprintf(L"%d is at (%d, %d)\n", target, ring, ring);
 
     return 0;
