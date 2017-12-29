@@ -94,7 +94,7 @@ void getPositionForTarget(_In_ long int target, _Out_ long int& x, _Out_ long in
         }
     }
 
-    wprintf(L"%d is at (%d, %d)", target, x, y);
+    wprintf(L"%d is at (%d, %d)\n", target, x, y);
 }
 
 long int getDistanceForTarget(_In_ long int target)
@@ -103,7 +103,12 @@ long int getDistanceForTarget(_In_ long int target)
     long int y = 0;
     getPositionForTarget(target, x, y);
 
-    return 0;
+    long int distance = abs(x);
+    distance += abs(y);
+
+    wprintf(L"%d is %d steps away from the center\n", target, distance);
+
+    return distance;
 }
 
 int main()
@@ -114,10 +119,6 @@ int main()
     long int target = wcstol(row.c_str(), nullptr, 10);
 
     getDistanceForTarget(target);
-
-
-
-    //wprintf(L"%d is at (%d, %d)\n", target, ring, ring);
 
     return 0;
 }
